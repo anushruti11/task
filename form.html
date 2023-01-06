@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style>
+    body {
+      background-color: #f1f1f1;
+    }
+
+    form {
+      width: 300px;
+      margin: 20px auto;
+      background-color: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: lightblue;
+      text-align: center;
+      padding: 10px;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    input[type="text"] {
+      width: 50%;
+      height: 30px;
+      border-radius: 4px;
+      border: 1px solid green;
+      margin-bottom: 10px;
+      padding: 0 15px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      color: rgb(122, 14, 193);
+    }
+
+    #plaintext{
+      background-color: rgb(170, 242, 168)
+    }
+    #sha1{
+      background-color: rgb(28, 214, 25);
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <label for="plaintext">Plaintext &nbsp;
+    <input type="text" id="plaintext" name="plaintext"></label><br>
+    <label for="sha1">SHA1 &nbsp;&nbsp;&nbsp;
+    <input type="text" id="sha1" name="sha1" readonly></label><br>
+  </form> 
+
+  <script>
+    const plaintextInput = document.getElementById('plaintext');
+    const sha1Input = document.getElementById('sha1');
+
+    plaintextInput.addEventListener('input', function() {
+      sha1Input.value = plaintextInput.value;
+      
+    });
+  </script>
+</body>
+</html>
