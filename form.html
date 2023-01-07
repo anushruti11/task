@@ -56,13 +56,49 @@
   </form> 
 
   <script>
-    const plaintextInput = document.getElementById('plaintext');
-    const sha1Input = document.getElementById('sha1');
+  const plaintextInput = document.getElementById('plaintext');
+const sha1Input = document.getElementById('sha1');
 
-    plaintextInput.addEventListener('input', function() {
-      sha1Input.value = plaintextInput.value;
-      
+plaintextInput.addEventListener('input', function() {
+  const plaintext = plaintextInput.value;
+
+  // Convert the plaintext to an ArrayBuffer
+  const plaintextBuffer = new TextEncoder().encode(plaintext);
+
+  // Compute the SHA-1 hash of the plaintext
+  crypto.subtle.digest('SHA-1', plaintextBuffer)
+    .then(function(hash) {
+      // Convert the hash to a hex string
+      const hexString = Array.prototype.map.call(new Uint8Array(hash), x => ('00' + x.toString(16)).slice(-2)).join('');
+
+      // Set the value of the SHA1 input field to the hex string
+      sha1Input.value = hexString;
+
+      // Add a new form with the same input fields
+      const newForm = document.createElement('form');
+      newForm.innerHTML = `
+        <label for="plaintext">Plaintext &nbsp;
+        <input type="text" id="plaintext" name="plaintext"></label><br>
+        <label for="sha1">SHA1 &nbsp;&nbsp;&nbsp;
+        <input type="text" id="sha1" name="sha1" readonly></label><br>
+      `;
+      newForm.style.width = '300px';
+      newForm.style.margin = '20px auto';
+      newForm.style.backgroundColor = 'white';
+      newForm.style.borderRadius = '4px';
+      newForm.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+      newForm.style.backgroundColor = 'lightblue';
+      newForm.style.textAlign = 'center';
+      newForm.style.padding = '10px';
+      newForm.style.fontFamily = 'sans-serif';
+      newForm.style.color = 'white';
+
+      document.body.appendChild(newForm);
     });
+});
+
+
+
   </script>
 </body>
 </html>
